@@ -7,7 +7,7 @@ int toint(char t[]){
 }
 
 int main(void){
-    int part1,part2;
+    int part1=0,part2=0;
     char buff[20];
     int old=50;
     int n=50;
