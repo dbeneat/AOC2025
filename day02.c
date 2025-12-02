@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdint.h>
-
 /*
     For part 1
     ----------
@@ -19,14 +18,12 @@
 
     "Z numbers"
     base 1: 1*10+1 =11, 11*10+1=111, 111*10+1=1111, etc.
-    base 10: 1*100+1=101, 101*100+1=10101, etc.
-     
+    base 10: 1*100+1=101, 101*100+1=10101, etc.   
 */
 
 
 uint64_t G(uint64_t a,uint64_t b){
-    uint64_t res=0;
-    uint64_t base=1;
+    uint64_t res=0, base=1;
     for(int k=1;k<6;k++){
         for(unsigned int n=base; n<10*base; n++){
             uint64_t t=(10*base+1)*n;
@@ -39,16 +36,15 @@ uint64_t G(uint64_t a,uint64_t b){
 
 
 uint64_t H(uint64_t a,uint64_t b){
-    uint64_t res=0;
-    uint64_t base=1;
-    int found[10019]={0}; //hash table to avoid double-counting
+    uint64_t res=0, base=1;
+    int found[3001]={0};//hash table to avoid double-counting. 3001=small prime
     for(int k=1;k<6;k++){
         uint64_t Z=10*base+1;
         while(Z<b){
             for(unsigned int n=base; n<10*base; n++){
                 uint64_t t=Z*n;
                 if(t>=a && t<=b){ 
-                    int h=(t*3)%10019;
+                    int h=(t*3)%3001;
                     if(found[h]==0){ res+=t; found[h]=1; }
                 }
             }
@@ -61,13 +57,9 @@ uint64_t H(uint64_t a,uint64_t b){
 
 
 int main(void){
-    uint64_t part1=0;
-    uint64_t part2=0;
+    uint64_t part1=0,part2=0;
     uint64_t a,b; char c;
-    while(scanf("%llu-%llu%c",&a,&b,&c)==3){
-        part1+=G(a,b);
-        part2+=H(a,b);
-    }
-   printf("%lld %lld",part1,part2);
+    while(scanf("%llu-%llu%c",&a,&b,&c)==3){ part1+=G(a,b); part2+=H(a,b); }
+    printf("%lld %lld",part1,part2);
     return 0;
 }
