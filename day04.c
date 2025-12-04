@@ -3,7 +3,7 @@
 
 int main(void){
     int part1=0,part2=0;
-    char buff[200][200]={0};
+    char buff[200][200]={{0}};
     int row=0;
     while(fgets(buff[row+1]+1,198,stdin)){ row++; }
     bool changed=true,first=true;
