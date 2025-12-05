@@ -13,27 +13,41 @@ int main(void){
     uint64_t part1=0,part2=0;
     uint64_t a,b,id;
     int nint=0;
-    uint64_t interv[200][2]={{0}};
+    uint64_t interv[1500][2]={{0}};
     while(scanf("%llu-%llu",&a,&b)==2){
         interv[nint][0]=a; interv[nint][1]=b;
         nint++;
     }
-    qsort((double**) interv,nint,2*sizeof(uint64_t),cmp);
     while(scanf("%llu",&id)==1){
-        for(int i=0; i<nint;i++){
-            uint64_t a=interv[i][0],b=interv[i][1];
-            if(id>=a && id<=b){ part1++; break; }
-            if(id>b){ break; }
-        }
+        interv[nint][0]=id; interv[nint][1]=id-1;
+        nint++;
     }
+    qsort((double**) interv,nint,2*sizeof(uint64_t),cmp);
+    uint64_t lenA=0,lenB=0,lenC=0;
+    // Sieve formula: len(A inter B) = len(A)+len(B)-len(A U B)
+    // lenA:total measure of intervals
+    // lenB: total measure of points
+    // lenC: total measure of union (A U B)
     uint64_t oldb=0;
     for(int i=0;i<nint;i++){
         uint64_t a=interv[i][0],b=interv[i][1];
+        if(a>b){ lenB+=1; continue; }
         if(b<=oldb){ continue; }
         if(a<=oldb){ a=oldb+1; }
-        part2+=b-a+1;
+        lenA+=b-a+1;
         oldb=b;
-    }    
+    }
+    oldb=0;
+    for(int i=0;i<nint;i++){
+        uint64_t a=interv[i][0],b=interv[i][1];
+        if(a>b){ b=a; }
+        if(b<=oldb){ continue; }
+        if(a<=oldb){ a=oldb+1; }
+        lenC+=b-a+1;
+        oldb=b;
+    }
+    part1=lenA+lenB-lenC;
+    part2=lenA;   
     printf("%llu %llu\n",part1,part2);
     return 0;
 }
