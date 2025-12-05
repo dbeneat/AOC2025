@@ -23,6 +23,7 @@ int main(void){
         for(int i=0; i<nint;i++){
             uint64_t a=interv[i][0],b=interv[i][1];
             if(id>=a && id<=b){ part1++; break; }
+            if(id>b){ break; }
         }
     }
     uint64_t oldb=0;
