@@ -1,5 +1,5 @@
-# AOC2024
-Advent of Code 2024
+# AOC2025
+Advent of Code 2025
 
     Execution times (in sec)
     day 1 ..... 0.049
