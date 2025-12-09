@@ -2,17 +2,18 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-uint64_t area(int xa,int ya,int xb,int yb){
-    return (uint64_t)(abs(xb-xa)+1)*(abs(yb-ya)+1);
+typedef struct {int x,y;} Point;
+uint64_t area(Point a,Point b){
+    return (uint64_t)(abs(b.x-a.x)+1)*(abs(a.y-b.y)+1);
 }
 int main(void){
     uint64_t part1=0;
-    int T[500][2];
+    Point T[500];
     int nt=0;
-    while(scanf("%d,%d",&T[nt][0],&T[nt][1])==2){ nt++; }
+    while(scanf("%d,%d",&T[nt].x,&T[nt].y)==2){ nt++; }
     for(int i=0;i<nt;i++){
-        for(int j=0;j<nt;j++){
-            uint64_t a=area(T[i][0],T[i][1],T[j][0],T[j][1]);
+        for(int j=i+1;j<nt;j++){
+            uint64_t a=area(T[i],T[j]);
             if(a>part1){ part1=a; }
         }
     }
